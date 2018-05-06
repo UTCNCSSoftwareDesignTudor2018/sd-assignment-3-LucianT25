@@ -12,7 +12,6 @@ public class ArticleManager extends Observable {
 
     public static ArticleManager instance;
     private List<Article> articles;
-    private List<Observer> readers;
 
     protected ArticleManager() {
 
@@ -43,15 +42,4 @@ public class ArticleManager extends Observable {
         notifyObservers();
     }
 
-    public void addReader(Reader reader) {
-        readers.add(reader);
-    }
-
-    public void removeReader(Reader reader) {
-        readers.remove(reader);
-    }
-
-    public List<Observer> getReaders() {
-        return readers;
-    }
 }

@@ -39,5 +39,9 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
+    public Article getArticle(String articleName) {
+        return articleRepository.findArticleByTitle(articleName);
+    }
+
 
 }
