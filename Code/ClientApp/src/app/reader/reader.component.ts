@@ -27,17 +27,20 @@ export class ReaderComponent implements OnInit {
     this.stompClient = Stomp.over(ws);
     let that = this;
     this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe("/chat", (message) => {
+      that.stompClient.subscribe("/topic/articlesList", (message) => {
         if(message.body) {
-          $(".chat").append("<div class='message'>"+message.body+"</div>")
           console.log(message.body);
+          that.buildList(message);
         }
       });
     });
   }
 
-  sendMessage(message){
-    this.stompClient.send("/app/send/message" , {}, message);
+  buildList(articlesList) {
+
+  }
+  getArticles(message){
+    this.stompClient.send("/articles/all" , {}, message);
     $('#input').val('');
   }
 }
