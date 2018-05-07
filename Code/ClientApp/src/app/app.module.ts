@@ -5,7 +5,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { WriterComponent } from './writer/writer.component';
 import { ReaderComponent } from './reader/reader.component';
-
+import { AppRoutingModule } from './/app-routing.module';
+import { StompService } from 'ng2-stomp-service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ReaderComponent } from './reader/reader.component';
     ReaderComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

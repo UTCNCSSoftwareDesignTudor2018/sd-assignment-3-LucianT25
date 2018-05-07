@@ -1,0 +1,10 @@
+.sideBar {
+    background-color: lightblue;
+    width: 200px;
+    height: 700px;
+}
+
+.articleView {
+    background-color: whitesmoke;
+    height: 100%;
+}

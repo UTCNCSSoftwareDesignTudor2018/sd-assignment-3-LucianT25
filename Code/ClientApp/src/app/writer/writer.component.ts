@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 import $ from 'jquery';
 
 @Component({
