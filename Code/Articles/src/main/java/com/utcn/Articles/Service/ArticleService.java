@@ -21,18 +21,18 @@ public class ArticleService {
 
     public ArticleService() {
         this.articleManager = ArticleManager.getInstance();
-        articleManager.setArticles(getArticles());
-        System.out.println("Did it! "+articleManager.getArticles().toArray());
+        //articleManager.setArticles(getArticles());
+        //System.out.println("Did it! "+articleManager.getArticles().toArray());
     }
 
     public void addArticle(Article article) {
         articleRepository.save(article);
-        articleManager.addArticle(article);
+      //  articleManager.addArticle(article);
     }
 
     public void removeArticle(Article article) {
         articleRepository.delete(article);
-        articleManager.removeArticle(article);
+       // articleManager.removeArticle(article);
     }
 
     public List<Article> getArticles() {

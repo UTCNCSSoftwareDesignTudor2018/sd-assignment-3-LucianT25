@@ -20,6 +20,10 @@ public class Writer {
         this.name = name;
     }
 
+    public Writer() {
+
+    }
+
     public Long getId() {
         return id;
     }

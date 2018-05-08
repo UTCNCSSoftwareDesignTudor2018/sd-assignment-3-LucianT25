@@ -13,19 +13,23 @@ public class Article{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
+
+    @OneToOne(fetch = FetchType.EAGER)
     private Writer author;
+
     private String abstr;
     private String body;
-
-    private ArrayList<Reader> readers;
 
     public Article(Long id, String title, Writer author, String abstr, String body) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.body = body;
-        this.readers = new ArrayList<>();
         this.abstr = abstr;
+    }
+
+    public Article() {
+
     }
 
     public String getAbstr() {
@@ -38,6 +42,10 @@ public class Article{
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -62,13 +70,5 @@ public class Article{
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    public void addReader(Reader reader) {
-        this.readers.add(reader);
-    }
-
-    public void removeReader(Reader reader) {
-        this.readers.remove(reader);
     }
 }

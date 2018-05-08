@@ -1,43 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
-import $ from 'jquery';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import {Observable} from 'rxjs/Rx';
+import {HttpHeaders} from '@angular/common/http';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-writer',
   templateUrl: './writer.component.html',
   styleUrls: ['./writer.component.css']
 })
-export class WriterComponent implements OnInit {
+export class WriterComponent{
 
-  private serverUrl = 'http://localhost:8080/socket'
-  private title = 'Articles';
-  private stompClient;
+  model: any = {};
+  username: string;
 
-  constructor(){
-    this.initializeWebSocketConnection();
-  }
-
-  ngOnInit() {
-  }
-
-  initializeWebSocketConnection(){
-    let ws = new SockJS(this.serverUrl);
-    this.stompClient = Stomp.over(ws);
-    let that = this;
-    this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe("/chat", (message) => {
-        if(message.body) {
-          $(".chat").append("<div class='message'>"+message.body+"</div>")
-          console.log(message.body);
-        }
-      });
-    });
-  }
-
-  sendMessage(message){
-    this.stompClient.send("/app/send/message" , {}, message);
-    $('#input').val('');
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private httpClient : HttpClient){
+      this.route.params.subscribe(res => this.username = res.user);
   }
   
+  postArticle() {
+    let headers = new HttpHeaders();
+    headers.set('Accept', 'text/plain').set('Content-Type', 'application/json');
+    
+    var info = JSON.stringify({title:this.model.title, abstr:this.model.abstract, body:this.model.body, author: null});
+    console.log(info);
+    const req = this.httpClient.post('http://localhost:8080/'+this.username+'/post', info, {headers : headers})
+      .subscribe(
+        err => {
+          console.log("Error occured");
+          console.log(err);
+        }
+      );
+  }
 }
+

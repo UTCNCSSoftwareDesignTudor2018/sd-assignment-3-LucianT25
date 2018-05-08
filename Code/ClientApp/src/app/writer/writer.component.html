@@ -1,3 +1,17 @@
-<p>
-  writer works!
-</p>
+<form method="post" (ngSubmit)="postArticle()">
+  <div>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="article_title" [(ngModel)]="model.title">
+  </div>
+  <div>
+    <label for="abstract">Abstract:</label>
+    <input type="abstract" id="abstract" name="article_abstract" [(ngModel)]="model.abstract">
+  </div>
+  <div>
+    <label for="body">Body:</label>
+    <textarea id="body" name="article_body" [(ngModel)]="model.body"></textarea>
+  </div>
+  <div class="button">
+    <button type="submit">Post</button>
+  </div>
+</form>

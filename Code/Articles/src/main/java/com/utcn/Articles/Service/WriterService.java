@@ -19,4 +19,14 @@ public class WriterService {
     public Writer getWriterByUsername(String username){
         return writerRepository.findByUsername(username);
     }
+
+    public void updateWriter(){}
+
+    public Writer login(String username, String password) {
+        Writer writer = writerRepository.findByUsername(username);
+        if(writer != null && writer.getPassword().equals(password)) {
+            return writer;
+        }
+        return null;
+    }
 }

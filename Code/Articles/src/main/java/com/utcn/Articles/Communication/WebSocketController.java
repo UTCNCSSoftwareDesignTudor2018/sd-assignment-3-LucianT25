@@ -1,4 +1,4 @@
-package com.utcn.Articles.Communication.Endpoints;
+package com.utcn.Articles.Communication;
 
 import com.google.gson.Gson;
 import com.utcn.Articles.Persistence.Entity.Article;
@@ -8,13 +8,15 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.inject.Inject;
 import java.util.List;
 
 @Controller
-public class ArticleController {
+@CrossOrigin(origins = "*")
+public class WebSocketController {
 
     @Inject
     ArticleService articleService;
@@ -22,11 +24,12 @@ public class ArticleController {
     SimpMessagingTemplate template;
 
     @Autowired
-    ArticleController(SimpMessagingTemplate template) {
+    WebSocketController(SimpMessagingTemplate template) {
         this.template = template;
     }
 
     @MessageMapping("/get/list")
+    @CrossOrigin
     public void updateArticles() throws Exception {
         List<Article> articles = articleService.getArticles();;
         Gson gson = new Gson();
