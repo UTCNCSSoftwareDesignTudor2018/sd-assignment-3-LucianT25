@@ -1,9 +1,17 @@
-<div class='sideBar'>
-  Articles
-</div>
-<div class='articleView'>
-  <p>article text.........</p><p>article text.........</p>
-  <p>article text.........</p><p>article text.........</p>
-  <p>article text.........</p><p>article text.........</p>
-  <button type="button" onclick="populateList()">Click Me!</button>
+<div class='container'>
+  <div id='col1' class='col1'>
+    <div class='sideBar'>
+      Articles
+      <p id="list" class = "articles-list" *ngFor="let article of articleList; let i = index" (click)="openArticle(i)">
+        {{ article.title }}
+      </p>
+    </div>
+  </div>
+
+  <div class = 'col2'>
+    <div id='at' class='articleTitle'></div> 
+    <div id='aa' class='articleAuthor'></div>
+    <div id='abs' class='articleAbstract'></div>
+    <div id='ab' class='articleBody'></div>
+  </div>
 </div>

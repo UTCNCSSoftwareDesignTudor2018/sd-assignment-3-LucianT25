@@ -15,26 +15,32 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Controller
-@CrossOrigin(origins = "*")
 public class WebSocketController {
 
     @Inject
     ArticleService articleService;
 
-    SimpMessagingTemplate template;
+    private SimpMessagingTemplate brokerMessagingTemplate;
 
     @Autowired
-    WebSocketController(SimpMessagingTemplate template) {
-        this.template = template;
+    WebSocketController(SimpMessagingTemplate brokerMessagingTemplate) {
+        this.brokerMessagingTemplate = brokerMessagingTemplate;
     }
 
     @MessageMapping("/get/list")
-    @CrossOrigin
-    public void updateArticles() throws Exception {
+    @SendTo("/list")
+    public String getArticles(){
         List<Article> articles = articleService.getArticles();;
         Gson gson = new Gson();
         String json = gson.toJson(articles);
-        this.template.convertAndSend("/list", json);
+        return json;
+    }
+
+    public void updateArticles() {
+        List<Article> articles = articleService.getArticles();;
+        Gson gson = new Gson();
+        String json = gson.toJson(articles);
+        this.brokerMessagingTemplate.convertAndSend("/list", json);
     }
 
 }

@@ -15,3 +15,21 @@
     <button type="submit">Post</button>
   </div>
 </form>
+
+<form method="post" (ngSubmit)="selectUpdate()">
+    <label for="update">Title to update:</label>
+    <input type="titleToUpdate" id="ttlu" name="update_title" [(ngModel)]="model.updateTitle">
+    <div class="button">
+        <button type="submit">update</button>
+    </div>
+</form>
+
+<form method="post" (ngSubmit)="deleteArticle()">
+    <label for="delete">Title to delete:</label>
+    <input type="titleToDelete" id="ttld" name="delete_title" [(ngModel)]="model.deleteTitle">
+    <div class="button">
+        <button type="submit">delete</button>
+    </div>
+</form>
+
+

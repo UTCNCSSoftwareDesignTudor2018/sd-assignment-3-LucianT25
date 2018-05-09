@@ -8,22 +8,42 @@ import com.utcn.Articles.Service.WriterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class ArticleController {
 
     private ArticleService articleService;
     private WriterService writerService;
+    private WebSocketController webSocketController;
 
     @Autowired
-    ArticleController(ArticleService articleService, WriterService writerService) {
+    ArticleController(ArticleService articleService, WriterService writerService, WebSocketController webSocketController) {
         this.articleService = articleService;
         this.writerService = writerService;
+        this.webSocketController = webSocketController;
     }
 
-    @RequestMapping(value = "/article/get", method = RequestMethod.GET)
-    public Article getArticleByName(String articleName) {
+    @RequestMapping(value = "/{username}/get", method = RequestMethod.GET)
+    public Article getArticleByName(@RequestParam String articleName) {
         return articleService.getArticle(articleName);
+    }
+
+    @RequestMapping(value = "/article/list", method = RequestMethod.GET)
+    public List<Article> getArticles() {
+        System.out.println("Retrieving articles... ");
+        return articleService.getArticles();
+    }
+
+    @RequestMapping(value = "/{username}/delete", method = RequestMethod.POST)
+    public void deleteArticle(@RequestBody String articleName) {
+        articleService.removeArticle(articleName);
+        try {
+            webSocketController.updateArticles();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{username}/post", method = RequestMethod.POST)
@@ -35,6 +55,11 @@ public class ArticleController {
         article.setAuthor(writer);
         article.setId(Long.valueOf(0));
         articleService.addArticle(article);
+        try {
+            webSocketController.updateArticles();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

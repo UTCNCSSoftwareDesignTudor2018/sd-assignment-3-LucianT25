@@ -2,9 +2,33 @@
     background-color: lightblue;
     width: 200px;
     height: 700px;
+    padding: .4em 1.3em;
+}
+
+.col1 {
+    padding: .4em 1.3em;
+    color:white;
+}
+
+.col2 {
+    padding: .4em 1.3em;
+    color: black;
 }
 
 .articleView {
     background-color: whitesmoke;
     height: 100%;
+}
+
+.articles-list {
+    background:#3Fa0e1;
+    padding:.5em;
+    font-weight: bold;
+    cursor:pointer;
+    color: whitesmoke
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 20% auto;
 }
